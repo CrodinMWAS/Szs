@@ -212,8 +212,24 @@
             Console.WriteLine("))((".IsValid());
 
             //3. Feladat
+            streamReader = new("people.csv");
+            List<Person> people = new List<Person>();
+            int avgAgeSum = 0;
+            double avgCounter = 0;
 
-            
+            while (!streamReader.EndOfStream) {
+                string[] line = streamReader.ReadLine().Split(";");
+                string name = $"{line[0]} {line[1]}";
+                int age = Convert.ToInt32(line[2].Split("-")[1]);
+                people.Add(new Person(name, age)); 
+
+                avgAgeSum += age;
+                avgCounter++;
+            }
+
+            Console.WriteLine("Legfiatalabb: ");
+            Console.WriteLine($"{people.First(person => person.Age == people.Min(x => x.Age)).Name} - {people.Min(x => x.Age)} | {people.First(person => person.Age == people.Max(x => x.Age)).Name} - {people.Max(x => x.Age)}");
+            Console.WriteLine($"AVG: {avgAgeSum / avgCounter}");
         }
     }
 
