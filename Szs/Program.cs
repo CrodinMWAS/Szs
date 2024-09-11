@@ -221,7 +221,7 @@
                 string[] line = streamReader.ReadLine().Split(";");
                 string name = $"{line[0]} {line[1]}";
                 int age = Convert.ToInt32(line[2].Split("-")[1]);
-                people.Add(new Person(name, age)); 
+                people.Add(new Person(name, Convert.ToString(age), line[2])); 
 
                 avgAgeSum += age;
                 avgCounter++;
@@ -230,6 +230,54 @@
             Console.WriteLine("Legfiatalabb: ");
             Console.WriteLine($"{people.First(person => person.Age == people.Min(x => x.Age)).Name} - {people.Min(x => x.Age)} | {people.First(person => person.Age == people.Max(x => x.Age)).Name} - {people.Max(x => x.Age)}");
             Console.WriteLine($"AVG: {avgAgeSum / avgCounter}");
+            streamReader.Close();
+
+            streamReader = new("dogs.csv");
+            List<Dog> dogs = new List<Dog>();
+            while (!streamReader.EndOfStream)
+            {
+                string[] line = streamReader.ReadLine().Split(";");
+                dogs.Add(new Dog(line[0], line[1], line[2], line[3]));
+            }
+
+            foreach (var person in people)
+            {
+                foreach (var dog in dogs)
+                {
+                    if (dog.Owner_id == person.Id)
+                    {
+                        person.dogs.Add(dog);
+                    }
+                }
+            }
+
+            Dictionary<string, int> dogCountPerOwner = new Dictionary<string, int>();
+            foreach (var item in people)
+            {
+                foreach (var dog in item.dogs)
+                {
+                    if (!dogCountPerOwner.ContainsKey(item.Name))
+                    {
+                        dogCountPerOwner.Add(item.Name, 1);
+                    }
+                    else
+                    {
+                        dogCountPerOwner[item.Name]++;
+                    }
+                }
+            }
+
+            int mostDogsPerOwner = 0;
+            string ownerWithMostDogs = "";
+            foreach (var item in dogCountPerOwner)
+            {
+                if (item.Value > mostDogsPerOwner)
+                {
+                    mostDogsPerOwner = item.Value;
+                    ownerWithMostDogs = item.Key;
+                }
+            }
+            Console.WriteLine($"{ownerWithMostDogs} has {mostDogsPerOwner} dogs");
         }
     }
 

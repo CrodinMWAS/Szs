@@ -6,27 +6,24 @@ using System.Threading.Tasks;
 
 namespace Szs
 {
-    internal class Person
+    internal class Dog
     {
         string name;
+        string breed;
         string age;
-        string id;
+        string owner_id;
 
-        public Person(string name, string age, string id)
+        public Dog(string name, string breed, string age, string owner_id)
         {
             this.name = name;
+            this.breed = breed;
             this.age = age;
-            this.id = id;
-            dogs = new List<Dog> { };
+            this.owner_id = owner_id;
         }
 
         public string Name { get => name; set => name = value; }
+        public string Breed { get => breed; set => breed = value; }
         public string Age { get => age; set => age = value; }
-        public string Id { get => id; set => id = value; }
-        public List<Dog> dogs { get; set; }
-        public void AddDog(Dog dog)
-        {
-            dogs.Add(dog);
-        }
+        public string Owner_id { get => owner_id; set => owner_id = value; }
     }
 }
