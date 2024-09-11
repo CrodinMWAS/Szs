@@ -155,12 +155,12 @@
             Ha a program sikeresen lefutott írj ki „#Kész!” üzenetet a standard kimenetre!
              */
 
-            StreamReader sr = new("kep.txt");
+            streamReader = new("kep.txt");
             StreamWriter sw = new("kekitett.txt");
-            while (!sr.EndOfStream)
+            while (!streamReader.EndOfStream)
             {
                 //Console.WriteLine(sr.ReadLine());
-                string[] line = sr.ReadLine().Split(";");
+                string[] line = streamReader.ReadLine().Split(";");
                 int blue = Convert.ToInt32(line[2]);
                 if (blue < 100)
                 {
@@ -168,20 +168,20 @@
                 }
                 sw.WriteLine($"{line[0]};{line[1]};{line[2]}");
             }
-            sr.Close();
+            streamReader.Close();
             sw.Close();
 
             // 2.feladatlap 1.feladat
 
             Console.WriteLine("-------------------------------");
 
-            StreamReader reader = new("input.txt");
+            streamReader = new("input.txt");
             int counter = 0;
-            while (!reader.EndOfStream)
+            while (!streamReader.EndOfStream)
             {
                 char openBracket = '(';
                 char closedBracket = ')';
-                string line = reader.ReadLine();
+                string line = streamReader.ReadLine();
                 if (line[0] != closedBracket)
                 {
                     Stack<char> stack = new Stack<char>();
@@ -191,7 +191,7 @@
                         {
                             stack.Push(item);
                         }
-                        if (stack.Count != 0)
+                        else if (stack.Count != 0)
                         {
                             stack.Pop();
                         }
@@ -203,8 +203,8 @@
                     }
                 }
             }
-            reader.Close();
-            Console.WriteLine(counter);
+            streamReader.Close();
+            Console.WriteLine($"asd {counter}");
 
 
             //2. Feladat
@@ -212,6 +212,8 @@
             Console.WriteLine("))((".IsValid());
 
             //3. Feladat
+
+            
         }
     }
 
